@@ -37,20 +37,22 @@ class LoginActivity : AppCompatActivity() {
 
             val jwtToken = sharedPreferences!!.getString("JWT_TOKEN", null)
 
+            Log.i("", "token: "+jwtToken)
+
             if(jwtToken != null){
 
                 this.oAuthApi!!.validate(jwtToken).enqueue(object : Callback<Any>{
 
                     override fun onFailure(call: Call<Any>?, t: Throwable?) {
 
-                        println("login expirou ou é inváido")
-                        Log.i("", "login expirou ou é inváido")
+                        println("login expirou ou é invalido")
+                        Log.i("", "login expirou ou é invaido")
 
                         this@LoginActivity.cleanSharedPreferences()
 
                         Toast.makeText(
                             this@LoginActivity,
-                            "Login expirou",
+                            t!!.message,
                             Toast.LENGTH_LONG)
                             .show()
 
@@ -75,7 +77,7 @@ class LoginActivity : AppCompatActivity() {
                                 }, 2000)
 
                             }else{
-
+                                Log.i("", "login expirou 1")
                                 this@LoginActivity.cleanSharedPreferences()
 
                                 Toast.makeText(
@@ -86,7 +88,7 @@ class LoginActivity : AppCompatActivity() {
                             }
 
                         }else{
-
+                            Log.i("", "login expirou 2")
                             this@LoginActivity.cleanSharedPreferences()
 
                             Toast.makeText(

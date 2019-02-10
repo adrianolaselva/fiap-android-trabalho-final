@@ -11,11 +11,11 @@ import br.com.fiap.trabalhofinalapplication.R
 import kotlinx.android.synthetic.main.user_add_fragment.*
 import kotlinx.android.synthetic.main.user_add_fragment.view.*
 
-class UserAddFragment: Fragment() {
+class HomeFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        var inflater = LayoutInflater.from(container?.context).inflate(R.layout.user_add_fragment, container, false)
+        var inflater = LayoutInflater.from(container?.context).inflate(R.layout.home_fragment, container, false)
 
 //        inflater.user_add_float_button.setOnClickListener { view ->
 //

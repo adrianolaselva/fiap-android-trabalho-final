@@ -33,6 +33,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+
+        var fragment = supportFragmentManager.beginTransaction()
+        fragment.replace(R.id.frameLayout, HomeFragment())
+        fragment.commit()
+
     }
 
     override fun onBackPressed() {
@@ -60,10 +66,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
-        var fragmentClass: Any? = null
 
         when (item.itemId) {
+
+            R.id.nav_home -> {
+
+                var fragment = supportFragmentManager.beginTransaction()
+                fragment.replace(R.id.frameLayout, HomeFragment())
+                fragment.commit()
+
+            }
 
             R.id.nav_user_add -> {
 
@@ -71,29 +83,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 fragment.replace(R.id.frameLayout, UserListFragment())
                 fragment.commit()
 
-//                var fragment = supportFragmentManager.beginTransaction()
-//                fragment.replace(R.id.frameLayout, UserAddFragment())
-//                fragment.commit()
             }
 
-//            R.id.nav_camera -> {
-//                // Handle the camera action
-//            }
-//            R.id.nav_gallery -> {
-//
-//            }
-//            R.id.nav_slideshow -> {
-//
-//            }
-//            R.id.nav_manage -> {
-//
-//            }
-//            R.id.nav_share -> {
-//
-//            }
-//            R.id.nav_send -> {
-//
-//            }
+            R.id.nav_exit -> {
+
+                finish()
+
+            }
+
         }
 
 

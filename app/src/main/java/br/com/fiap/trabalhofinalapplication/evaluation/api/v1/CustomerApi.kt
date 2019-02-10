@@ -16,6 +16,13 @@ interface CustomerApi {
     @GET("/v1/customers")
     fun list(@Header("Authorization") token: String? = null): Call<CustomersReponse>
 
+    @GET("/v1/customers")
+    fun list(
+        @Header("Authorization") token: String? = null,
+        @Query("size") size: Int = 10,
+        @Query("page") page: Int = 0,
+        @Query("dir") dir: String = "ASC"
+    ): Call<CustomersReponse>
 
     @GET("/v1/customers/{uuid}")
     fun load(@Header("Authorization") token: String? = null, @Path("uuid") uuid: String? = null): Call<CustomersReponse>

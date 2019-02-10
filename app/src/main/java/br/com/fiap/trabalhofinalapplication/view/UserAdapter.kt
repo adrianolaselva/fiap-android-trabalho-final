@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import br.com.fiap.trabalhofinalapplication.R
-import br.com.fiap.trabalhofinalapplication.evaluation.contracts.Customer
 import br.com.fiap.trabalhofinalapplication.evaluation.contracts.customers.v1.CustomersReponse
 import kotlinx.android.synthetic.main.user_row.view.*
 import java.lang.Exception
@@ -15,7 +14,7 @@ import java.lang.Exception
 class UserAdapter(var customerResponse: CustomersReponse?) : RecyclerView.Adapter<CustomViewHolder>() {
 
     override fun getItemCount(): Int {
-        return customerResponse!!.totalElements
+        return customerResponse!!.numberOfElements
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
@@ -26,21 +25,20 @@ class UserAdapter(var customerResponse: CustomersReponse?) : RecyclerView.Adapte
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
 
-        Log.i("", "posição: "+position.toString())
-        Log.i("", "Tamanho: "+customerResponse!!.content!!.size.toString())
+        try{
+            Log.i("", "posição: "+position.toString())
+            Log.i("", "Tamanho: "+customerResponse!!.content!!.size.toString())
 
-        var customer = customerResponse!!.content!![position]
+            var customer = customerResponse!!.content!![position]
 
-        Log.i("", customer.toString())
+            Log.i("", customer.toString())
 
-        holder.view.firstNameTextView?.text = customer.firstName
-        holder.view.lastNameTextView?.text = customer.lastName
+            holder.view.firstNameTextView?.text = customer.firstName
+            holder.view.lastNameTextView?.text = customer.lastName
+            holder.view.documentNumberTextView?.text = customer.documentNumber
+        }catch (e: Exception){
 
-//       try {
-//
-//       }catch (ex: Exception){
-//           Log.e("", ex.message)
-//       }
+        }
     }
 
 }

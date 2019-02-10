@@ -1,6 +1,8 @@
 package br.com.fiap.trabalhofinalapplication.view
 
 import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -18,6 +20,7 @@ import br.com.fiap.trabalhofinalapplication.evaluation.api.v1.CustomerApi
 import br.com.fiap.trabalhofinalapplication.evaluation.api.v1.OAuthApi
 import br.com.fiap.trabalhofinalapplication.evaluation.contracts.customers.v1.CustomersReponse
 import br.com.fiap.trabalhofinalapplication.evaluation.dao.DataBaseInstance
+import kotlinx.android.synthetic.main.user_add_fragment.*
 import kotlinx.android.synthetic.main.user_list_fragment.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,46 +32,83 @@ class UserListFragment: Fragment() {
 
     var customerResponse: CustomersReponse? = null
 
+    lateinit var sharedPreferences: SharedPreferences
+    lateinit var inflater: View
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         customerApi = APIClient.client?.create(CustomerApi::class.java)
 
-        var inflater = LayoutInflater.from(container?.context).inflate(R.layout.user_list_fragment, container, false)
+        this.inflater = LayoutInflater.from(container?.context).inflate(R.layout.user_list_fragment, container, false)
 
-        val sharedPreferences = inflater.context.getSharedPreferences("appconfig",
+
+        this.inflater.user_add_float_button.setOnClickListener {
+
+            var intent = Intent(it.context, UserAddActivity::class.java)
+            it.context.startActivity(intent)
+
+//            Toast.makeText(
+//                inflater.context,
+//                "Inserir",
+//                Toast.LENGTH_LONG)
+//                .show()
+
+        }
+
+        this.inflater.user_reload_float_button.setOnClickListener {
+            load()
+        }
+
+
+        this.sharedPreferences = inflater.context.getSharedPreferences("appconfig",
             Context.MODE_PRIVATE)
 
-        inflater.user_list_recyclerview.layoutManager = LinearLayoutManager(container?.context)
+        this.inflater.user_list_recyclerview.layoutManager = LinearLayoutManager(container?.context)
 
+        load()
+
+        return this.inflater
+    }
+
+    fun load() {
         println("token: " + sharedPreferences.getString("JWT_TOKEN", null))
 
-        this.customerApi!!.list(sharedPreferences.getString("JWT_TOKEN", null))
+        this.customerApi!!.list(sharedPreferences.getString("JWT_TOKEN", null), 1000)
             .enqueue(object : Callback<CustomersReponse> {
 
-            override fun onFailure(call: Call<CustomersReponse>?, t: Throwable?) {
+                override fun onFailure(call: Call<CustomersReponse>?, t: Throwable?) {
 
-                Toast.makeText(
-                    inflater.context,
-                    t!!.message,
-                    Toast.LENGTH_LONG)
-                    .show()
+                    Toast.makeText(
+                        inflater.context,
+                        t!!.message,
+                        Toast.LENGTH_LONG)
+                        .show()
 
-            }
+                }
 
-            override fun onResponse(call: Call<CustomersReponse>?, response: Response<CustomersReponse>?) {
+                override fun onResponse(call: Call<CustomersReponse>?, response: Response<CustomersReponse>?) {
 
-                if(response?.isSuccessful == true){
+                    if(response?.isSuccessful == true){
 
-                    if(response.code() == 200){
+                        if(response.code() == 200){
 
-                        customerResponse = response.body()
+                            customerResponse = response.body()
 
-                        Toast.makeText(
-                            inflater.context,
-                            "Dados carregados com sucesso",
-                            Toast.LENGTH_LONG)
-                            .show()
+                            Toast.makeText(
+                                inflater.context,
+                                "Dados carregados com sucesso",
+                                Toast.LENGTH_LONG)
+                                .show()
 
+
+                        }else{
+
+                            Toast.makeText(
+                                inflater.context,
+                                "Falha ao carregar usuários",
+                                Toast.LENGTH_LONG)
+                                .show()
+                        }
 
                     }else{
 
@@ -79,23 +119,10 @@ class UserListFragment: Fragment() {
                             .show()
                     }
 
-                }else{
-
-                    Toast.makeText(
-                        inflater.context,
-                        "Falha ao carregar usuários",
-                        Toast.LENGTH_LONG)
-                        .show()
+                    inflater.user_list_recyclerview.adapter = UserAdapter(customerResponse)
                 }
 
-                inflater.user_list_recyclerview.adapter = UserAdapter(customerResponse)
-            }
-
-        })
-
-
-
-        return inflater
+            })
     }
 
 }

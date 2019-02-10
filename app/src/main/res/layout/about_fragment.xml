@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 xmlns:tools="http://schemas.android.com/tools"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 android:id="@+id/about_fragment" android:background="@color/colorPrimary">
+
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        <TextView
+                android:textColor="#FFFF"
+                android:text="@string/developerResource"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/homeTextView" android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/imageView4"
+                app:layout_constraintStart_toStartOf="@+id/imageView4" android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp" android:textStyle="bold"/>
+        <ImageView
+                android:textColor="#FFFF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" app:srcCompat="@drawable/logo_splash"
+                android:id="@+id/imageView4" android:layout_marginTop="20dp"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginLeft="20dp" android:layout_marginStart="20dp" android:textStyle="bold"/>
+        <TextView
+                android:textColor="@color/whiteFontColor"
+                android:text="@string/adrianoDevResource"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView4"
+                app:layout_constraintStart_toStartOf="@+id/homeTextView"
+                android:layout_marginLeft="8dp" android:layout_marginStart="8dp" android:textStyle="bold|italic"
+                android:textAllCaps="true" android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/homeTextView"/>
+        <TextView
+                android:textColor="#FFFF"
+                android:text="@string/guilermedevResource"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView5"
+                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/textView4"
+                app:layout_constraintStart_toStartOf="@+id/homeTextView" android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp" android:textStyle="bold|italic" android:textAllCaps="true"/>
+        <TextView
+                android:textColor="#FFFF"
+                android:text="Versão:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView8" app:layout_constraintStart_toStartOf="@+id/imageView4"
+                android:layout_marginLeft="8dp" android:layout_marginStart="8dp" android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" android:textStyle="bold"/>
+        <TextView
+                android:textColor="#FFFF"
+                android:text="@string/versionResource"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView9" app:layout_constraintStart_toEndOf="@+id/textView8"
+                android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
+                app:layout_constraintTop_toTopOf="@+id/textView8" android:textStyle="bold" android:textAllCaps="true"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.design.widget.CoordinatorLayout>

@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#113380</color>
     <color name="colorAccent">#D81B60</color>
     <color name="paygo_bgcolor">#13347F</color>
+    <color name="whiteFontColor">#FFFF</color>
 </resources>

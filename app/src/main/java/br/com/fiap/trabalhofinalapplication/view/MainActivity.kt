@@ -85,7 +85,23 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             }
 
+            R.id.nav_about -> {
+
+                var fragment = supportFragmentManager.beginTransaction()
+                fragment.replace(R.id.frameLayout, AboutFragment())
+                fragment.commit()
+
+            }
+
             R.id.nav_exit -> {
+
+                var sharedPreferences = getSharedPreferences("appconfig",
+                    Context.MODE_PRIVATE)
+
+                var editor = sharedPreferences.edit()
+                editor.putBoolean("KEEP_CONNECTED_CHECKBOX", false)
+                editor.putString("JWT_TOKEN", null)
+                editor.apply()
 
                 finish()
 
@@ -98,4 +114,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
+
 }

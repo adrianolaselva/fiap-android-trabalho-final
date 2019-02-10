@@ -43,16 +43,8 @@ class UserListFragment: Fragment() {
 
 
         this.inflater.user_add_float_button.setOnClickListener {
-
             var intent = Intent(it.context, UserAddActivity::class.java)
             it.context.startActivity(intent)
-
-//            Toast.makeText(
-//                inflater.context,
-//                "Inserir",
-//                Toast.LENGTH_LONG)
-//                .show()
-
         }
 
         this.inflater.user_reload_float_button.setOnClickListener {
@@ -120,6 +112,7 @@ class UserListFragment: Fragment() {
                     }
 
                     inflater.user_list_recyclerview.adapter = UserAdapter(customerResponse)
+
                 }
 
             })

@@ -25,4 +25,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="developerResource">Desenvolvedores</string>
+    <string name="versionResource">0.1.0</string>
+    <string name="adrianoDevResource">RM331464 - Adriano Moreira La Selva</string>
+    <string name="guilermedevResource">RM330877 - Guilherme Palmeira Zaia</string>
+    <string name="expiredSessionResource">Seu login expirou</string>
+    <string name="authenticatedOkResource">Login validado, redirecionando mais tela principal</string>
+    <string name="removeConfirmResource">Deseja realmente remover este registro?</string>
 </resources>

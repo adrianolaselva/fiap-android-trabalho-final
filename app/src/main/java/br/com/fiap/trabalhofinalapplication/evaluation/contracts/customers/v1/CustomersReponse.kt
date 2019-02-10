@@ -4,7 +4,7 @@ import br.com.fiap.trabalhofinalapplication.evaluation.contracts.Customer
 import br.com.fiap.trabalhofinalapplication.evaluation.contracts.Sort
 
 data class CustomersReponse(
-    val content: List<Customer>? = null,
+    val content: ArrayList<Customer>? = null,
     val totalPages: Int = 0,
     val totalElements: Int = 0,
     val last: Boolean? = null,

@@ -15,6 +15,10 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".view.UserAddActivity">
+
+        </activity>
+        <activity android:name=".view.UserEditActivity">
+
         </activity>
         <activity
                 android:name=".view.LoginActivity"

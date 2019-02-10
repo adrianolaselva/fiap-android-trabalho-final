@@ -15,28 +15,90 @@ import br.com.fiap.trabalhofinalapplication.evaluation.contracts.Customer
 import br.com.fiap.trabalhofinalapplication.evaluation.contracts.customers.v1.CustomersReponse
 import br.com.fiap.trabalhofinalapplication.evaluation.enums.GenreEnum
 import kotlinx.android.synthetic.main.activity_user_add.*
+import kotlinx.android.synthetic.main.recycler_view_item.view.*
 import kotlinx.android.synthetic.main.user_list_fragment.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.Exception
+import java.util.*
 
 
-
-class UserAddActivity : AppCompatActivity() {
+class UserEditActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_add)
 
+        val id = intent.getStringExtra("id")
+
         val sharedPreferences = getSharedPreferences("appconfig",
             Context.MODE_PRIVATE)
 
 
+        println("id: " + id)
         println("token: " + sharedPreferences.getString("JWT_TOKEN", null))
 
         var customerApi = APIClient.client?.create(CustomerApi::class.java)
+
+
+        customerApi
+            ?.load(sharedPreferences.getString("JWT_TOKEN", null), id)
+            ?.enqueue(object : Callback<Customer> {
+
+                override fun onFailure(call: Call<Customer>?, t: Throwable?) {
+
+                    Toast.makeText(
+                        this@UserEditActivity,
+                        t!!.message,
+                        Toast.LENGTH_LONG)
+                        .show()
+                }
+
+                override fun onResponse(call: Call<Customer>?, response: Response<Customer>?) {
+
+                    if(response?.isSuccessful == true){
+
+                        if(response.code() == 200){
+
+                            firstNameEditText.setText(response.body()!!.firstName)
+                            lastNameEditText.setText(response.body()!!.lastName)
+                            documentNumberEditText.setText(response.body()!!.documentNumber)
+
+                            var genre = 0
+                            when(response.body()!!.genre){
+                                GenreEnum.MALE -> genre = 0
+                                GenreEnum.FEMALE -> genre = 1
+                            }
+//                            val stringArray = resources.getStringArray(R.array.genres)
+//                            val itemPosition = Arrays.asList(stringArray).indexOf(genre)
+                            genreSpinner.setSelection(genre)
+
+                        }else{
+
+                            Toast.makeText(
+                                this@UserEditActivity,
+                                "Falha ao carregar dados",
+                                Toast.LENGTH_LONG)
+                                .show()
+                        }
+
+                    }else{
+
+                        Toast.makeText(
+                            this@UserEditActivity,
+                            "Falha ao carregar dados",
+                            Toast.LENGTH_LONG)
+                            .show()
+                    }
+
+                }
+
+            })
+
+
+
 
         saveButton.setOnClickListener {
 
@@ -54,13 +116,13 @@ class UserAddActivity : AppCompatActivity() {
             )
 
             customerApi
-                ?.create(sharedPreferences.getString("JWT_TOKEN", null), customer)
+                ?.update(sharedPreferences.getString("JWT_TOKEN", null), id, customer)
                 ?.enqueue(object : Callback<Customer> {
 
                 override fun onFailure(call: Call<Customer>?, t: Throwable?) {
 
                     Toast.makeText(
-                        this@UserAddActivity,
+                        this@UserEditActivity,
                         t!!.message,
                         Toast.LENGTH_LONG)
                         .show()
@@ -73,18 +135,18 @@ class UserAddActivity : AppCompatActivity() {
                         if(response.code() == 200){
 
                             Toast.makeText(
-                                this@UserAddActivity,
-                                "Usuário cadastrado com sucesso",
+                                this@UserEditActivity,
+                                "Alterado com sucesso",
                                 Toast.LENGTH_LONG)
                                 .show()
 
-                            this@UserAddActivity.finish()
+                            this@UserEditActivity.finish()
 
                         }else{
 
                             Toast.makeText(
-                                this@UserAddActivity,
-                                "Falha ao cadastrar usuário",
+                                this@UserEditActivity,
+                                "Falha ao alterar cadastro",
                                 Toast.LENGTH_LONG)
                                 .show()
                         }
@@ -92,7 +154,7 @@ class UserAddActivity : AppCompatActivity() {
                     }else{
 
                         Toast.makeText(
-                            this@UserAddActivity,
+                            this@UserEditActivity,
                             "Falha ao cadastrar usuário",
                             Toast.LENGTH_LONG)
                             .show()
@@ -103,7 +165,6 @@ class UserAddActivity : AppCompatActivity() {
             })
 
         }
-
 
         cancelButton.setOnClickListener {
             finish()

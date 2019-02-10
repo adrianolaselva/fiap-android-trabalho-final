@@ -13,10 +13,14 @@
 
 
         <TextView
-                android:text="HOME"
+                android:text="Bem vindo"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" tools:layout_editor_absoluteY="337dp"
-                tools:layout_editor_absoluteX="142dp" android:id="@+id/homeTextView"/>
+                android:layout_height="wrap_content"
+                android:id="@+id/homeTextView" android:layout_marginTop="120dp"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginLeft="8dp" android:layout_marginStart="8dp" android:textSize="30sp"
+                android:textStyle="bold" android:textAllCaps="false" android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"/>
     </android.support.constraint.ConstraintLayout>
 
 </android.support.design.widget.CoordinatorLayout>
